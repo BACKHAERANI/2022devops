@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습4</title>
+    <style>
+        body {background-color: powderblue;}
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333333;
+            }
+
+            li {
+            float: left;
+            }
+
+            li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+            }
+
+            li a:hover {
+            background-color: #111111;
+            }
+
+    </style>
+</head>
+<body>
+    <p>Here is a quote from WWF's website:</p>
+    <blockquote cite="http://www.worldwildlife.org/who/index.html">  <!-- blockquote 태그는 주로 감춰져 있다. 들여쓰기 됩니다.-->
+        For 50 years, WWF has been protecting the future of nature.
+        The world's leading conservation organization,
+        WWF works in 100 countries and is supported by
+        1.2 million members in the United States and
+        close to 5 million globally.
+    </blockquote>
+    <p>WWF's goal is to: <q>Build a future where people live in harmony with nature.</q></p>  <!--인용하는 따옴표-->
+    <p>The <abbr title="World Health Organization">WHO</abbr>was founded in 1948.</p> <!--약어-->
+    <address> <!--주소, 기울임-->
+        Written by John Doe.<br>
+        Visit us at: <br>
+        Example.com<br>
+        Box 564, Dosenyland<br>
+        USA
+    </address>
+    <p><cite>The Scream</cite>by Edvard Munch. Painted in 1893.</p> <!--작품 등의 제목을 기울임으로-->
+    <bdo dir="rtl">This text will be Written from right to left</bdo>  <!--왼쪽으로 적어나감-->
+
+    <h4>라디오버튼</h4>
+
+    <input type="radio" name="job" value="design">
+    <label>디자이너</label>
+
+    <h4>첨부파일</h4>
+    
+    <pre>
+    <label>첨부파일</label>
+    <input type="file">
+    </pre>  
+
+
+    <h4>선택박스</h4>
+
+    <select>
+        <option>앜</option>
+        <option>도대체</option>
+        <option>이 드릴소리는</option>
+        <option>어디서...?</option>
+    </select>
+
+    <ul style="list-style-type:square;">  <!--style, list-style-type-->
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>
+
+    <br>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+
+    
+      <form>
+          <input type="text">
+          <input type="password">
+      </form>
+       
+</body>
+</html>
