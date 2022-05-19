@@ -3,13 +3,13 @@
 }
 .container{
     position:relative;
-    height: 400px;
-    text-align:left;
+    height:400px;
+    text-align:left; 
 }
 .slide{
    position:absolute;
    left:0px;
-   top:30px;
+   top:0px;
    width:100%;
    z-index:1;
    opacity:0;
@@ -18,23 +18,29 @@
    opacity:1;
    z-index:2;
 }
-
+.quiz{
+  height: 400px;
+}
+.buttons{
+    position: absolute;
+    right: 300px;
+}
 .quiz-btn{
-    background-color: plum;  
+    background-color: rgb(221, 160, 221);  
     height: 30px;
     width: 50px;
     border-radius: 5px;
     border-style: none;
 }
 .quiz-submit{
-    background-color:violet;
+    background-color:rgb(238, 130, 238);
     height: 30px;
     width: 80px;
     border-radius: 5px;
     border-style: none;
 }
 .question{
-    background-color: pink;
+    background-color: rgb(252, 183, 194);
     text-align: left;
     font-size: xx-large;
     border-radius: 5px;
@@ -42,15 +48,13 @@
 .answer{
     font-size: large;
 }
-.quiz-result{
-    background-color: lightblue;
-    width:30%;
-    border-radius: 5px;
-    text-align: center;
-    font-size: 4em;
+.rns{
+   position: absolute;
+   left: 50%;
+   width: 600px;
 }
-.quiz-score{
-    background-color: lightgreen;
+.quiz-result{
+    background-color: rgb(173, 216, 230);
     width:30%;
     border-radius: 5px;
     text-align: center;
