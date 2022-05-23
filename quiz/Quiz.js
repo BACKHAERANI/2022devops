@@ -530,7 +530,7 @@ const quizData =
                         }     
       
         });
-                const score = `${numCorrect}` * 2.5;  //점수계산
+                const score = Math.round(  `${numCorrect*100/quizData.length}`);  //점수계산
                 result.push(`<div><h3>${numCorrect}/${quizData.length}</h3>
                                 <h3>${score}점</h3>
                               </div>`)
