@@ -549,19 +549,19 @@ const quizData =
                nextBtn.style.display = 'inline-block';
            }
     
-           if(currentSlide === slides.length-1){
-               nextBtn.style.display = 'none';
-               retryBtn.style.display = 'inline-block';
-               submitBtn.style.display = 'inline-block';
-               resultDisplay.style.display = 'inline-block';     //퀴즈페이지에서 결과가 보지 않도록 하고 싶다 miss >> 이미 나온 결과는 다시 결과버튼을 누를때까지 남아있음
-           } else{ 
-               submitBtn.style.display = 'none';
-               resultDisplay.style.display = 'none';
-               retryBtn.style.display = 'none';
-            }
+        if(currentSlide === slides.length-1){
+            nextBtn.style.display = 'inline-block';
+            retryBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'inline-block';
+            resultDisplay.style.display = 'inline-block';       //퀴즈페이지에서 결과가 보지 않도록 하고 싶다 miss >> 이미 나온 결과는 다시 결과버튼을 누를때까지 남아있음         
+        } else{ 
+            submitBtn.style.display = 'none';
+            resultDisplay.style.display = 'none';
+            retryBtn.style.display = 'none';
 
+        }    
+        
     };
-
 
     
     
@@ -590,21 +590,26 @@ const quizData =
   
 
     function handleNext(){
-        if(nextBtn.value === "정답확인"){
-            nextBtn.value = "next";
-            showcorrect();
-           }else{
-            nextBtn.value = "정답확인";
-            hiddencorrect();
-            showSlide(currentSlide+1); }
-        
- };
+        const slides = document.querySelectorAll('.slide'); 
+
+        if(currentSlide === slides.length-1 && nextBtn.value === "next"){
+            alert("마지막 페이지 입니다.")}else{
+            if(nextBtn.value === "정답확인"){
+                nextBtn.value = "next";
+                showcorrect();
+            }else{
+                nextBtn.value = "정답확인";
+                hiddencorrect();
+                showSlide(currentSlide+1); }
+            }
+        };
  
     function handlePrevSlide(){ showSlide(currentSlide-1);};
   
 
     function handleRetry(){
         showSlide(0);
+        hiddencorrect();
 
     };
 
