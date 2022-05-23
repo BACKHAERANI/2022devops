@@ -471,7 +471,6 @@ const quizData =
     
     const quizDisplay = document.getElementById('quiz');
     const resultDisplay = document.getElementById('result');
-    const correctDisplay = document.getElementById('correct');
 
      let currentSlide = 0;
     
@@ -496,7 +495,7 @@ const quizData =
                               <h3 style="padding-left: 20px">Question ${index+1} of ${quizData.length}</h3>
                                     <div class="question">Q${currentQuestion.id}. ${currentQuestion.question}</div>
                                     <div class="answer"><br>${answers.join('<br><br>')}</div><br><br>
-                                  <div>${currentQuestion.correct}</div>
+                                  <div class="correct" style="visibility:hidden">${currentQuestion.correct}</div>
                                     
                                 </div>
                                `);                                    
@@ -508,20 +507,10 @@ const quizData =
         };
 
      
-//     function correctlist(){
-//         const corrects =  [ ];
-//         quizData.forEach((currentQuestion, index) => { 
+
+
+    function showcorrect(){document.querySelector('.correct').style.visibility = 'visible'};
     
-//              corrects.push(`<div>${currentQuestion.correct}</div>`);        
-                             
-//          }          
-// );
-
-//         correctDisplay.innerHTML = corrects.join('</br>');
-//     };
-
-
-    function showcorrect(){correctDisplay.style.visibility= 'visible';};
       
 
 
@@ -586,8 +575,9 @@ const quizData =
     //정답이 hidden일 때 누르면 visible로 전환
     //https://jhmocu.tistory.com/104
     function handleNext(){
-        if(correctDisplay.style.visibility === 'hidden'){
-            showcorrect()}else{ showSlide(currentSlide+1);}
+        if(  document.querySelector('.correct').style.visibility  === 'hidden'){
+            showcorrect()
+        }else{ showSlide(currentSlide+1);}
 
  };
   
