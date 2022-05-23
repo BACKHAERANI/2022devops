@@ -35,28 +35,28 @@ const quizData =
         },
         "correct": "C"
     },
-    // {
-    //     "id":"4",
-    //     "question":"What is the correct HTML element for inserting a line break?",
-    //     "answers":
-    //     {
-    //         "A": "‹lb›",
-    //         "B": "‹br›",
-    //         "C": "‹break›"
-    //     },
-    //     "correct": "B"
-    // },
-    // {
-    //     "id":"5",
-    //     "question":"What is the correct HTML for adding a background color?",
-    //     "answers":
-    //     {
-    //         "A": "‹body bg='yellow'›",
-    //         "B": "‹background›yellow‹/background›",
-    //         "C": "‹body style='background-color:yellow'›"
-    //     },
-    //     "correct": "C"
-    // },
+    {
+        "id":"4",
+        "question":"What is the correct HTML element for inserting a line break?",
+        "answers":
+        {
+            "A": "‹lb›",
+            "B": "‹br›",
+            "C": "‹break›"
+        },
+        "correct": "B"
+    },
+    {
+        "id":"5",
+        "question":"What is the correct HTML for adding a background color?",
+        "answers":
+        {
+            "A": "‹body bg='yellow'›",
+            "B": "‹background›yellow‹/background›",
+            "C": "‹body style='background-color:yellow'›"
+        },
+        "correct": "C"
+    },
     // {
     //     "id":"6",
     //     "question":"Choose the correct HTML element to define important text",
@@ -492,10 +492,10 @@ const quizData =
                                 output.push(`
                                 
                                 <div class="slide">
-                              <h3 style="padding-left: 20px">Question ${index+1} of ${quizData.length}</h3>
+                                    <h3 style="padding-left: 20px">Question ${index+1} of ${quizData.length}</h3>
                                     <div class="question">Q${currentQuestion.id}. ${currentQuestion.question}</div>
                                     <div class="answer"><br>${answers.join('<br><br>')}</div><br><br>
-                                  <div class="correct" style="visibility:hidden">${currentQuestion.correct}</div>
+                                  <div class="correct" >${currentQuestion.correct}</div>
                                     
                                 </div>
                                `);                                    
@@ -506,12 +506,6 @@ const quizData =
   
         };
 
-     
-
-
-    function showcorrect(){document.querySelector('.correct').style.visibility = 'visible'};
-    
-      
 
 
     function handlesubmit(){
@@ -573,15 +567,38 @@ const quizData =
     
     //nextBtn을 누르면 정답 슬라이드가 나와야 한다.
     //정답이 hidden일 때 누르면 visible로 전환
+    //1)id를 사용하여 히든 구현 -실패
     //https://jhmocu.tistory.com/104
-    function handleNext(){
-        if(  document.querySelector('.correct').style.visibility  === 'hidden'){
-            showcorrect()
-        }else{ showSlide(currentSlide+1);}
+    //2) div 내 class를 사용하여 히든구현
+    //https://www.delftstack.com/ko/howto/javascript/change-css-property-using-javascript/
+    //3) querySelector는 배열 내 첫번째 요소를 반환. quertSelectorAll은 문서 내 요소 목록을 반환한다.
+    //https://stackoverflow.com/questions/33085889/queryselectorall-style-does-not-work 
 
- };
+
+    function showcorrect(){ 
+        var els = document.querySelectorAll('.correct');
+        for (var x = 0; x < els.length; x++)
+            els[x].style.display = 'block';};
+        
+        // document.querySelectoraAll('.correct').style.display= 'block'; 
+
+
+    function hiddencorrect(){ 
+         var els = document.querySelectorAll('.correct');
+    for (var x = 0; x < els.length; x++)
+        els[x].style.display = 'none'  };
   
 
+    function handleNext(){
+        if(nextBtn.value === "정답확인"){
+            nextBtn.value = "next";
+            showcorrect();
+           }else{
+            nextBtn.value = "정답확인";
+            hiddencorrect();
+            showSlide(currentSlide+1); }
+        
+ };
  
     function handlePrevSlide(){ showSlide(currentSlide-1);};
   
