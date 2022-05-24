@@ -1,10 +1,13 @@
+/*https://at-corner.tistory.com/17 - 색상표*/
+
 .title{
     font-size: 4em;
 }
 .container{
     position:relative;
-    height:400px;
+    height:500px;
     text-align:left; 
+
 }
 .slide{
    position:absolute;
@@ -22,21 +25,14 @@
 .correct{
     display: none;
 }
-.quiz{
-  height: 400px;
-}
-
+.buttons{
+    height: 200px;
+ }
 .quiz-btn{
-    background-color: rgb(191, 209, 169);  
-    height: 30px;
-    width: 50px;
-    border-radius: 5px;
-    border-style: none;
-}
-.quiz-submit{
     background-color:rgb(191, 209, 169);
     height: 30px;
     width: 80px;
+    text-align: center;
     border-radius: 5px;
     border-style: none;
 }
@@ -49,15 +45,11 @@
 .answer{
     font-size: large;
 }
-.rns{
-   position: absolute;
-   left: 50%;
-   width: 600px;
-}
+
 .quiz-result{
-    background-color: rgb(173, 216, 230);
-    width:30%;
+    background-color: rgb(173, 230, 195);
     border-radius: 5px;
     text-align: center;
     font-size: 4em;
 }
+

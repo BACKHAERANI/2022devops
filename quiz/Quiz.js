@@ -1,62 +1,62 @@
 // 데이터
-const quizData = 
-   [ {
-        "id":"1",
-        "question":"What does HTML stand for?",
-        "answers":
-        {
-            "A": "Hyper Text Markup Language",
-            "B": "Hyperlinks and Text Markup Language",
-            "C": "Home Tool Markup Language"
-        },
-        "correct": "A"
-    },
-    {
-        "id":"2",
-        "question":"Who is marking the Web standards?",
-        "answers":
-        {
-            "A": "Microsoft",
-            "B": "Google",
-            "C": "The World Wide Web Consortium",
-            "D": "Mozilla"
-        },
-        "correct": "C"
-    },
-    {
-        "id":"3",
-        "question":"Choose the correct HTML element for the largest heading",
-        "answers":
-        {
-            "A": "‹h6›", 
-            "B": "‹heading›",
-            "C": "‹h1›",
-            "D": "‹head›"
-        },
-        "correct": "C"
-    },
-    {
-        "id":"4",
-        "question":"What is the correct HTML element for inserting a line break?",
-        "answers":
-        {
-            "A": "‹lb›",
-            "B": "‹br›",
-            "C": "‹break›"
-        },
-        "correct": "B"
-    },
-    {
-        "id":"5",
-        "question":"What is the correct HTML for adding a background color?",
-        "answers":
-        {
-            "A": "‹body bg='yellow'›",
-            "B": "‹background›yellow‹/background›",
-            "C": "‹body style='background-color:yellow'›"
-        },
-        "correct": "C"
-    },
+const quizData = [
+//    [ {
+//         "id":"1",
+//         "question":"What does HTML stand for?",
+//         "answers":
+//         {
+//             "A": "Hyper Text Markup Language",
+//             "B": "Hyperlinks and Text Markup Language",
+//             "C": "Home Tool Markup Language"
+//         },
+//         "correct": "A"
+//     },
+//     {
+//         "id":"2",
+//         "question":"Who is marking the Web standards?",
+//         "answers":
+//         {
+//             "A": "Microsoft",
+//             "B": "Google",
+//             "C": "The World Wide Web Consortium",
+//             "D": "Mozilla"
+//         },
+//         "correct": "C"
+//     },
+//     {
+//         "id":"3",
+//         "question":"Choose the correct HTML element for the largest heading",
+//         "answers":
+//         {
+//             "A": "‹h6›", 
+//             "B": "‹heading›",
+//             "C": "‹h1›",
+//             "D": "‹head›"
+//         },
+//         "correct": "C"
+//     },
+//     {
+//         "id":"4",
+//         "question":"What is the correct HTML element for inserting a line break?",
+//         "answers":
+//         {
+//             "A": "‹lb›",
+//             "B": "‹br›",
+//             "C": "‹break›"
+//         },
+//         "correct": "B"
+//     },
+//     {
+//         "id":"5",
+//         "question":"What is the correct HTML for adding a background color?",
+//         "answers":
+//         {
+//             "A": "‹body bg='yellow'›",
+//             "B": "‹background›yellow‹/background›",
+//             "C": "‹body style='background-color:yellow'›"
+//         },
+//         "correct": "C"
+//     },
     // {
     //     "id":"6",
     //     "question":"Choose the correct HTML element to define important text",
@@ -423,40 +423,40 @@ const quizData =
     //     },
     //     "correct": "D"
     // },
-    // {
-    //     "id":"38",
-    //     "question":"Which HTML element defines navigation links?",
-    //     "answers":
-    //     {
-    //         "A": "‹navigate›",
-    //         "B": "‹navigation›",
-    //         "C": "‹nav›"
-    //     },
-    //     "correct": "C"
-    // },
-    // {
-    //     "id":"39",
-    //     "question":"In HTML, what does the ‹aside› element define?",
-    //     "answers":
-    //     {
-    //         "A": "Content aside from the page content",
-    //         "B": "A navigation list to be shown at the left side of the page",
-    //         "C": "The ASCⅡ character-set; to send information between computers on the internet"
-    //     },
-    //     "correct": "A"
-    // },
-    // {
-    //     "id":"40",
-    //     "question":"Which HTML element is used to specify a header for a document or section?",
-    //     "answers":
-    //     {
-    //         "A": "‹head›",
-    //         "B": "‹top›",
-    //         "C": "‹header›",
-    //         "D": "‹section"
-    //     },
-    //     "correct": "C"
-    // }
+    {
+        "id":"38",
+        "question":"Which HTML element defines navigation links?",
+        "answers":
+        {
+            "A": "‹navigate›",
+            "B": "‹navigation›",
+            "C": "‹nav›"
+        },
+        "correct": "C"
+    },
+    {
+        "id":"39",
+        "question":"In HTML, what does the ‹aside› element define?",
+        "answers":
+        {
+            "A": "Content aside from the page content",
+            "B": "A navigation list to be shown at the left side of the page",
+            "C": "The ASCⅡ character-set; to send information between computers on the internet"
+        },
+        "correct": "A"
+    },
+    {
+        "id":"40",
+        "question":"Which HTML element is used to specify a header for a document or section?",
+        "answers":
+        {
+            "A": "‹head›",
+            "B": "‹top›",
+            "C": "‹header›",
+            "D": "‹section›"
+        },
+        "correct": "C"
+    }
     
    ]
 
@@ -468,9 +468,13 @@ const quizData =
     const prevBtn = document.getElementById('prev');
     const nextBtn = document.getElementById('next');
     const retryBtn = document.getElementById('retry');
+    const upBtn = document.getElementById('up');
+    const finalBtn = document.getElementById('finalbtn');
+    const AllBtn = document.getElementById('buttons');
     
     const quizDisplay = document.getElementById('quiz');
     const resultDisplay = document.getElementById('result');
+    const finalDisplay = document.getElementById('final');
 
      let currentSlide = 0;
     
@@ -483,7 +487,7 @@ const quizData =
                            for(item in currentQuestion.answers){
                                         //answers영역 담기  
                                        answers.push(`<label>
-                                                    <input type="radio" name="question${index}" value="${item}">
+                                                    <input type="radio" class="radio" name="question${index}" value="${item}">
                                                         ${item} : ${currentQuestion.answers[item]}
                                                     </label>`);
                                }
@@ -493,10 +497,9 @@ const quizData =
                                 
                                 <div class="slide">
                                     <h3 style="padding-left: 20px">Question ${index+1} of ${quizData.length}</h3>
-                                    <div class="question">Q${currentQuestion.id}. ${currentQuestion.question}</div>
+                                    <div class="question">Q${index+1}. ${currentQuestion.question}</div>
                                     <div class="answer"><br>${answers.join('<br><br>')}</div><br><br>
                                   <div class="correct" >${currentQuestion.correct}</div>
-                                    
                                 </div>
                                `);                                    
                         }              
@@ -508,11 +511,10 @@ const quizData =
 
 
 
-    function handlesubmit(){
-            const answerDisplays = quizDisplay.querySelectorAll('.answer');   //quizDisplay영역에서  <class ="answer">과 일치하는 리스트 반환
+    function showsubmit(){
             let numCorrect = 0; 
             const result = [];
-            
+
             //forEach (현재처리요소, 인덱스, 배열){}
             quizData.forEach( (currentQuestion, questionNum)=>{  
                     const answerDisplay = answerDisplays[questionNum];  
@@ -521,10 +523,10 @@ const quizData =
 
                       if(userAnswer === currentQuestion.correct){    
                             numCorrect++;       
-                        }     
+                        }    
       
         });
-                const score = Math.round(  `${numCorrect*100/quizData.length}`);  //점수계산
+         const score = Math.round(`${numCorrect*100/quizData.length}`);  //점수계산, 소수점아래는 보이지 않도록
                 result.push(`<div><h3>${numCorrect}/${quizData.length}</h3>
                                 <h3>${score}점</h3>
                               </div>`)
@@ -533,10 +535,61 @@ const quizData =
                 resultDisplay.innerHTML = result.join('</br>'); 
     };
 
+
+    function handlefinal(){
+        const final = [];
+    quizData.forEach((currentQuestion, index)=>{ 
+        const answers = []; 
+        const answerDisplay = answerDisplays[index];  
+        const selector = `input[name=question${index}]:checked`;    /// user의 대답 체크
+        const userAnswer = (answerDisplay.querySelector(selector) || {}).value;
+        const arry = Object.entries(currentQuestion.answers);
+        console.log(arry)
+  
+            for(var i = 0; i < arry.length; i++){
+                if(userAnswer === currentQuestion.correct){
+                    if(userAnswer === arry[i][0]){
+                        answers.push( `<div style="background-color:lightgreen">${arry[i][0]}:${arry[i][1]}    <딩동댕</div>`)
+                    } 
+                    else{
+                        answers.push( `<div style="background-color:lightgray">${arry[i][0]}:${arry[i][1]}</div>`)
+                    }}
+
+                else if(currentQuestion.correct === arry[i][0]){  
+                        answers.push( `<div style="background-color:pink">${arry[i][0]}:${arry[i][1]}    <정답</div>`)
+                    }
+                
+                else if(userAnswer === arry[i][0]){
+                    answers.push( `<div style="background-color:red">${arry[i][0]}:${arry[i][1]}    <오답</div>`)      
+                }
+        
+                else{
+                    answers.push( `<div style="background-color:lightgray">${arry[i][0]}:${arry[i][1]}</div>`)
+                    }
+
+                    ///
+              
+
+
+            }
+
+        final.push(`
+        <div>
+        <h3 style="padding-left: 20px">Question ${index+1} of ${quizData.length}</h3>
+        <div class="question">Q${index+1}. ${currentQuestion.question}</div>
+        <div class="answer"><pre>${answers.join('<br>')}<pre></div><br><br>
+      <div class="correct" >${currentQuestion.correct}</div>
+      </div>`)
+    });
+            AllBtn.style.display = 'none';
+            upBtn.style.display = 'inline-block';
+            finalDisplay.innerHTML = final.join('</br>'); 
+};
+
+
    
     //slide, prev next
     function showSlide(n){
-        const slides = document.querySelectorAll('.slide'); 
          slides[currentSlide].classList.remove('active-slide');  //classList.remove - 명시된 클래스를 제거한다. currentSlide를 지우고
          slides[n].classList.add('active-slide');  //classList.add - 명시된 클래스를 추가한다. n(다음 slide)을 추가한다
          currentSlide = n;
@@ -553,16 +606,17 @@ const quizData =
             nextBtn.style.display = 'inline-block';
             retryBtn.style.display = 'inline-block';
             submitBtn.style.display = 'inline-block';
-            resultDisplay.style.display = 'inline-block';       //퀴즈페이지에서 결과가 보지 않도록 하고 싶다 miss >> 이미 나온 결과는 다시 결과버튼을 누를때까지 남아있음         
+            resultDisplay.style.display = 'inline-block';   
+            finalBtn.style.display = 'none';
         } else{ 
             submitBtn.style.display = 'none';
             resultDisplay.style.display = 'none';
             retryBtn.style.display = 'none';
-
+            upBtn.style.display = 'none';
+            finalBtn.style.display = 'none';
         }    
         
     };
-
     
     
     //nextBtn을 누르면 정답 슬라이드가 나와야 한다.
@@ -573,53 +627,98 @@ const quizData =
     //https://www.delftstack.com/ko/howto/javascript/change-css-property-using-javascript/
     //3) querySelector는 배열 내 첫번째 요소를 반환. quertSelectorAll은 문서 내 요소 목록을 반환한다.
     //https://stackoverflow.com/questions/33085889/queryselectorall-style-does-not-work 
-
-
     function showcorrect(){ 
-        var els = document.querySelectorAll('.correct');
-        for (var x = 0; x < els.length; x++)
-            els[x].style.display = 'block';};
+        for (var x = 0; x < els.length; x++){
+            els[x].style.display = 'block';}};
         
-        // document.querySelectoraAll('.correct').style.display= 'block'; 
+    function hiddencorrect(){    
+    for (var x = 0; x < els.length; x++){
+        els[x].style.display = 'none';}};
 
 
-    function hiddencorrect(){ 
-         var els = document.querySelectorAll('.correct');
-    for (var x = 0; x < els.length; x++)
-        els[x].style.display = 'none'  };
-  
+    //class 숨기기
+    function hiddenclass(){
+        document.getElementById("rns").hidden = true;
+        document.getElementById("quiz").hidden = false;
+        }
+
 
     function handleNext(){
-        const slides = document.querySelectorAll('.slide'); 
-
+        //조건문
         if(currentSlide === slides.length-1 && nextBtn.value === "next"){
-            alert("마지막 페이지 입니다.")}else{
+            alert("마지막 페이지 입니다.")
+        }else{
             if(nextBtn.value === "정답확인"){
                 nextBtn.value = "next";
-                showcorrect();
-            }else{
+                showcorrect();                
+            }else if(nextBtn.value === "next"){
                 nextBtn.value = "정답확인";
                 hiddencorrect();
                 showSlide(currentSlide+1); }
+           
             }
         };
- 
-    function handlePrevSlide(){ showSlide(currentSlide-1);};
-  
+
+    // class를 숨겼다가 보여주는 것으로 이전으로 돌아간 것처럼 구현
+    function handlePrevSlide(){ 
+        hiddencorrect();
+        if(document.getElementById("quiz").hidden === true){ 
+           hiddenclass();
+           nextBtn.value = "정답확인";
+           nextBtn.style.display = 'inline-block';
+           submitBtn.style.display = 'inline-block';
+           upBtn.style.display = 'none';
+           finalBtn.style.display = 'none';
+        }else{   
+            showSlide(currentSlide-1);
+            nextBtn.value = "정답확인";
+        };
+    };
+      
 
     function handleRetry(){
-        showSlide(0);
+        hiddenclass();
         hiddencorrect();
-
+        showSlide(0);
     };
+
+    function handlesubmit(){
+        nextBtn.style.display = 'none';
+        finalBtn.style.display = 'inline-block';
+        showsubmit();
+    }
 
 
     //호출
-    quizList()
-    showSlide(currentSlide);
-
+    quizList();
+    const slides = document.querySelectorAll('.slide'); 
+    const answerDisplays = quizDisplay.querySelectorAll('.answer');   //quizDisplay영역에서  <class ="answer">과 일치하는 리스트 반환
+    showSlide(0);
+    var els = document.querySelectorAll('.correct');
+  
+   
+  
+ //이전, 다음, 재도전 
     prevBtn.addEventListener('click',handlePrevSlide);
     nextBtn.addEventListener('click',handleNext);
-    submitBtn.addEventListener('click', handlesubmit); 
     retryBtn.addEventListener('click', handleRetry); 
+
+//점수 제출
+    submitBtn.addEventListener('click', function() {
+        handlesubmit()
+        document.getElementById("quiz").hidden = true;
+        document.getElementById("final").hidden = true;
+        document.getElementById("rns").hidden = false;
+        }, false);
+
+
+
+//마지막 결과 환산(재도전불가, 뒤로가기 불가)
+    finalBtn.addEventListener('click', function() {
+        handlefinal()
+        document.getElementById("quiz").hidden = true;
+        document.getElementById("rns").hidden = true;
+        document.getElementById("final").hidden = false;
+        }, false)
+    upBtn.addEventListener('click', function up(){window.scrollTo(0,0)} )
    
