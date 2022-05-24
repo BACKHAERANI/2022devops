@@ -4,37 +4,40 @@
     font-size: 4em;
 }
 
-.container{
-    text-align:left; 
-}
-
 .slide{
     position:fixed;
     top: 25%;
     left: 25%;
     z-index:1;
     opacity:0;
+    width: 800px;
+    height: 200px;
 }
 .active-slide{
-    position:absolute;
     opacity:1;
     z-index:2;
 }
 
 .content{
-    border: 5px solid #C8D7FF ;
+    border: 3px solid #C8D7FF ;
 }
-
-
 .correct{
     display: none;
     background-color:#DCEBFF ;
-    inline-size: 40px;
+    inline-size: 800px;
+    text-align: center;
+    top: 85%;
 }
 .buttons{
     position:fixed;
-    top: 75%;
-    left: 75%;
+    top: 85%;
+    right: 23%;
+ 
+ }
+ .buttons1{
+    position:fixed;
+    bottom: 5%;
+    right: 5%;
  
  }
 .quiz-btn{
@@ -48,16 +51,39 @@
 .question{
     background-color: #C8D7FF;
     text-align: left;
-    font-size: xx-large;
+    font-size: 1.5em;
 }
 .answer{
     font-size: large;    
 }
-
 .quiz-result{
-    background-color: #C8D7FF;
-    border-radius: 5px;
+    position:absolute;
     text-align: center;
-    font-size: 4em;
+    top: 25%;
+    left: 30%;
+}
+.quiz-result h3{
+    border: 3px solid #C8D7FF;
+    width: 300px;
+    height: 100px;  
 }
 
+#final{
+    position: absolute;
+    left: 20%;
+    
+}
+
+.finalanswer{
+    font-size: 1.7em;
+}
+
+.finalanswer label{
+    position: absolute;
+    right: 3%;
+    width: 200px;
+    height: 30px;
+    background-color: #C8D7FF;
+    text-align: center;
+    color:#EBFBFF;
+}
