@@ -542,7 +542,7 @@ const quizData = [
     quizData.forEach((currentQuestion, index)=>{ 
         const answers = []; 
         const answerDisplay = answerDisplays[index];  
-        const selector = `input[name=question${index}]:checked`;    /// user의 대답 체크
+        const selector = `input[name=question${index}]:checked`;   
         const userAnswer = (answerDisplay.querySelector(selector) || {}).value;
         const arry = Object.entries(currentQuestion.answers);
        
@@ -582,6 +582,27 @@ const quizData = [
             resultDisplay.style.display = "none";
             finalDisplay.innerHTML = final.join('</br>'); 
 };
+
+
+    function handlealert(){
+        
+        quizData.forEach((currentQuestion, index)=>{ 
+            const answerDisplay = answerDisplays[index];  
+            const selector = `input[name=question${index}]:checked`;   
+            const userAnswer = (answerDisplay.querySelector(selector) || {}).value;
+            const arry = Object.entries(userAnswer);
+
+                console.log(arry)
+           
+                for(var i = 0; i < arry1.length; i++){
+                if(arry1 === null) {alert("정답을 입력해주세요.")}else{
+                    return null
+                };
+                }
+            
+            
+            });
+    };
 
 
 
@@ -643,6 +664,7 @@ const quizData = [
 
 
     function handleNext(){
+        handlealert()
         //조건문
         if(currentSlide === slides.length-1 && nextBtn.value === "next"){
             alert("마지막 페이지 입니다.")
