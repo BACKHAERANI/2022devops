@@ -496,10 +496,12 @@ const quizData = [
                                 output.push(`
                                 
                                 <div class="slide">
-                                    <h3 style="padding-left: 20px">Question ${index+1} of ${quizData.length}</h3>
+                                <div class="content">
+                                    <h3 class="index">Question ${index+1} of ${quizData.length}</h3>
                                     <div class="question">Q${index+1}. ${currentQuestion.question}</div>
                                     <div class="answer"><br>${answers.join('<br><br>')}</div><br><br>
-                                  <div class="correct" >${currentQuestion.correct}</div>
+                                  <div class="correct">${currentQuestion.correct}</div>
+                                  </div>
                                 </div>
                                `);                                    
                         }              
