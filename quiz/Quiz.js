@@ -645,9 +645,8 @@ const quizData = [
         //alert창 띄우기
         var chk_radio = quizDisplay.querySelectorAll('.radio');
         var arry_type = [];
-        const arry = Object.entries(chk_radio);
 
-       for (var i=0; i<arry.length; i++ ){
+       for (var i=0; i< chk_radio.length; i++ ){
              if(chk_radio[i].checked === true){ 
                 arry_type++;}
             } 
