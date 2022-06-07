@@ -10,13 +10,20 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 
+import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Validated
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
@@ -37,14 +44,17 @@ public class ReservationService {
     }
 
     @Transactional
-    public Reservation save(ReservationDTO dto) {
+    public Reservation save(@Valid ReservationDTO dto) {
         Reservation reservation = new Reservation(dto.getId(), dto.getUsername(), dto.getCar(), dto.getStartdate(),
                 dto.getEnddate(),dto.getTimerange(), dto.getPurpose(),  dto.getPurposeDetail());
+
         return reservationRepository.save(reservation);
     }
 
+
+
     @Transactional
-    public int put(Integer id, PutDTO dto) {
+    public int put(Integer id, @Valid PutDTO dto) {
         Optional<Reservation> reserv = reservationRepository.findById(id);
         if (reserv.isPresent()) {
             Reservation reservation = reserv.get();

@@ -7,6 +7,7 @@ import com.Assambble.carbble.model.entity.Reservation;
 import com.Assambble.carbble.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -45,15 +46,16 @@ public class Controller {
         }
 
         return response;
+
     }
 
 
     @RequestMapping(value = "/reservations", method = RequestMethod.POST)
-    public Map<String, Object> addReservation(@RequestBody ReservationDTO dto) {
+    public Map<String, Object> addReservation( @RequestBody ReservationDTO dto) {
         Map<String, Object> response = new HashMap<>();
 
         Reservation reservation = reservationService.save(dto);
-        if(dto.getUsername() != null) {
+        if(dto.getUsername() !=null) {
             response.put("result", "SUCCESS");
             response.put("user", dto);
         } else {
