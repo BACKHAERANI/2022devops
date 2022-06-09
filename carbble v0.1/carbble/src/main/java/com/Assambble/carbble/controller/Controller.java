@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @RestController
 @EnableSwagger2
 @RequiredArgsConstructor
+@Validated
 public class Controller {
 
 
@@ -51,11 +53,12 @@ public class Controller {
 
 
     @RequestMapping(value = "/reservations", method = RequestMethod.POST)
-    public Map<String, Object> addReservation( @RequestBody ReservationDTO dto) {
+    public Map<String, Object> addReservation( @Valid @RequestBody ReservationDTO dto) {
         Map<String, Object> response = new HashMap<>();
 
         Reservation reservation = reservationService.save(dto);
-        if(dto.getUsername() !=null) {
+
+        if(reservation != null) {
             response.put("result", "SUCCESS");
             response.put("user", dto);
         } else {

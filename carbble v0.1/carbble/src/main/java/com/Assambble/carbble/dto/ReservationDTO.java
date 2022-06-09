@@ -1,10 +1,8 @@
 package com.Assambble.carbble.dto;
 
-import lombok.*;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import lombok.*;
+import javax.validation.constraints.*;
 import java.util.Date;
 
 @Getter
@@ -31,13 +29,33 @@ public class ReservationDTO {
     private Date enddate;
 
     @NotNull(message = "오전/오후/종일 중에 선택해주세요.")
+    @Max(value = 3)
     private Integer timerange;
 
     @NotNull(message = "이용목적을 선택해주세요.")
+    @Max(value = 2)
     private Integer purpose;
 
     @NotEmpty(message = "상세한 이용목적을 입력해주세요.")
     private String purposeDetail;
 
 
+    @Override
+    public String toString(){
+        return "Reservation{"+
+                "id='" + id + '\'' +
+                "username='" + username + '\'' +
+                ", car=" + car +
+                ", startdate='" + startdate + '\'' +
+                ", enddate='" + enddate + '\'' +
+                ", timerange='" + timerange + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", purposeDetail='" + purposeDetail + '\'' +
+                '}';
+    }
+
+
 }
+
+
+
