@@ -1,0 +1,19 @@
+server:
+  port: 8089
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+      force-response: true
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://10.10.100.96:3306/carbble?characterEncoding=UTF-8&serverTimezone=Asia/seoul
+    username: carbble
+    password: 1234
+
+logging:
+  level:
+    org.hibernate:
+      type.descriptor.sql: trace #show parameter binding
+      SQL: DEBUG
