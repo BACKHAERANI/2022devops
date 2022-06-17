@@ -5,6 +5,7 @@ import com.Assembble.carbble.dto.ReservationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 @Repository
 public class ReservationServiceImpl implements ReservationService {
@@ -19,10 +20,17 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<ReservationDTO> putReservation(Date startdate, Date enddate)
+    {
+        return reservation.select2(startdate, enddate);
+    }
+
+    @Override
     public int addReservation(ReservationDTO dto)
     {
         return reservation.insert(dto);
     }
+
 
     @Override
     public  int removeReservation(int id){return reservation.delete(id);}

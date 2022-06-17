@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -23,11 +24,24 @@ public class ReservationDAOImpl implements ReservationDAO{
         return jdbcTemplate.query(strQuery, new BeanPropertyRowMapper<>(ReservationDTO.class));
     }
 
+
+    @Override
+    public List<ReservationDTO> select2(Date startdate, Date enddate)
+    {
+        String strQuery = "SELECT * FROM reservation_tbl WHERE startdate >= ? AND enddate <= ? ORDER BY startdate DESC, enddate DESC ";
+        return jdbcTemplate.query(
+                strQuery,
+                new BeanPropertyRowMapper<>(ReservationDTO.class),
+                new Object[]{startdate, enddate});
+    }
+
+
+
     @Override
     public int insert(ReservationDTO dto)
     {
-        String strQuery = "INSERT INTO reservation_tbl(id, username, car, startdate, enddate, timerange, purpose, purpose_detail) VALUES (?, ?, ?, ?, ?,?,?,?)";
-        return jdbcTemplate.update(strQuery, dto.getId(), dto.getUsername(), dto.getCar(), dto.getStartdate(), dto.getEnddate(), dto.getTimerange(), dto.getPurpose(), dto.getPurposeDetail());
+        String strQuery = "INSERT INTO reservation_tbl (id, username, car, startdate, enddate, purpose, purpose_detail) SELECT ?, ?, ?, ?, ?, ?, ? FROM DUAL WHERE NOT EXISTS(SELECT car, startdate, enddate FROM reservation_tbl WHERE car = ? AND startdate >= ? AND enddate <= ?)";
+        return jdbcTemplate.update(strQuery, dto.getId(), dto.getUsername(), dto.getCar(), dto.getStartdate(), dto.getEnddate(), dto.getPurpose(), dto.getPurposeDetail(), dto.getCar(), dto.getStartdate(), dto.getEnddate());
     }
 
 

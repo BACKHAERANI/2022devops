@@ -2,13 +2,17 @@ server:
   port: 8089
   tomcat:
     uri-encoding: UTF-8
+#    TimeZone:
+#      asia/seoul:
+#        olson: Asia/Seoul
+#        text: (GMT+09:00) Seoul
   servlet:
     encoding:
       force-response: true
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://10.10.100.96:3306/carbble?characterEncoding=UTF-8&serverTimezone=Asia/seoul
+    url: jdbc:mariadb://220.123.184.56:3306/carbble?characterEncoding=UTF-8&serverTimezone=Asia/seoul
     username: carbble
     password: 1234
 
