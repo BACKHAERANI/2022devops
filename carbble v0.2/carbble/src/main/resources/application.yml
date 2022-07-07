@@ -2,10 +2,6 @@ server:
   port: 8089
   tomcat:
     uri-encoding: UTF-8
-#    TimeZone:
-#      asia/seoul:
-#        olson: Asia/Seoul
-#        text: (GMT+09:00) Seoul
   servlet:
     encoding:
       force-response: true
@@ -17,7 +13,14 @@ spring:
     password: 1234
 
 logging:
-  level:
+  file:
+    path: ./logs
+    max-history: 30
+    max-size: 10MB
+    level:
+      root: info
+      #org.apache.http: debug
+      org.apache.http: info
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG

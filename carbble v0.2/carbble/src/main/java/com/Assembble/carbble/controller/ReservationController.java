@@ -1,11 +1,14 @@
 package com.Assembble.carbble.controller;
 
-import com.Assembble.carbble.dto.PutDTO;
+import com.Assembble.carbble.dto.ReservationPutDTO;
 import com.Assembble.carbble.dto.ReservationDTO;
+import com.Assembble.carbble.dto.ReservationPutDateDTO;
 import com.Assembble.carbble.service.ReservationServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -16,67 +19,76 @@ import java.util.*;
 @EnableSwagger2
 @Validated
 @Slf4j
-@CrossOrigin(origins = "http://localhost:8080")
 public class ReservationController {
 
     @Autowired
     ReservationServiceImpl service;
 
 
-    //조회
-//    @RequestMapping(value = "/reservations", method = RequestMethod.GET)
-//    public List<ReservationDTO> getReservation(){
-//
-//        return service.getReservation();
-//
-//        }
 
     //날짜 조회
-  //값이 없는데 PUT요청이 왔을 때 예외처리????하고 싶었으나...
-    @RequestMapping(value = "/reservations", method = RequestMethod.PUT)
-    public List<ReservationDTO> putReservation(@RequestBody @NotNull PutDTO dto){
+  //값이 없는데 PUT요청이 왔을 때 없다고 콘솔에 알려주려면?
+    // 200 응답답  404에러
 
-            log.info("select reservation:[{}]", service.putReservation(dto.getStartdate(), dto.getEnddate()));
-             return service.putReservation(dto.getStartdate(), dto.getEnddate());}
+    @RequestMapping(value = "/reservations", method = RequestMethod.PUT)
+    public ResponseEntity<List<ReservationPutDTO>> putReservation(@RequestBody @NotNull ReservationPutDateDTO dto ){
+
+        List <ReservationPutDTO> reservationDTO = service.putReservation(dto.getStartdate(), dto.getEnddate());
+
+            if(reservationDTO.isEmpty()) {
+                log.info("select reservation 404 :[{}]",service.putReservation(dto.getStartdate(), dto.getEnddate()));
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+            }
+            else {
+                log.info("select reservation 200:[{}]",service.putReservation(dto.getStartdate(), dto.getEnddate()));
+                return new ResponseEntity<>(reservationDTO,HttpStatus.OK); //List를 함께 리턴해야 한다.
+
+
+            }
+
+
+
+    }
+
 
 
     //저장
+    //201 생성 응답 400 에러
+    //문제)실패해도 성공해도 200 요청을 보내준다 요청이 성공적으로 들어오긴 했으니까.....
     @RequestMapping(value = "/reservations", method = RequestMethod.POST)
-    public Map<String, Object> addReservation(@Valid @RequestBody ReservationDTO dto) {
-        Map<String, Object> response = new HashMap<>();
+    public ResponseEntity<String> addReservation(@Valid @RequestBody ReservationDTO dto){
 
-        //1은성공 0는 실패
+        if(service.addReservation(dto)>0){
+            log.info("post reservation 201:[{}]", "SUCCESS");
+            return new ResponseEntity<>(HttpStatus.CREATED);
 
-        if (service.addReservation(dto) > 0) {
-            response.put("reservation", dto);
-            log.info("post reservation:[{}]", "SUCCESS"); //log 뒤에  반환값(0,1)을 받아오니까 저장이 두 번 된다 왜지?
-
-        } else {
-            response.put("result", "FAIL");
-            response.put("reason", "예약불가능");
-            log.info("post reservation:[{}]", "FAIL");
+        }else{
+            log.error("post reservation 400:[{}]","FAIL");
+            String strErrorBody = "{\"reason\":\"잘못된 요청입니다.\"}";
+            return new ResponseEntity<>(strErrorBody,HttpStatus.BAD_REQUEST);
         }
 
-        return response;
     }
 
 
 
     //삭제
-    @RequestMapping(value = "/reservations/{id}", method = RequestMethod.DELETE)
-    public Map<String, Object> removeReservation(@PathVariable("id") Integer id) {
-        Map<String, Object> response = new HashMap<>();
+    //204 = HttpStatus.NO_CONTENT 응답 404에러
+    @RequestMapping(value = "/reservations/{reservationId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> removeReservation(@PathVariable ("reservationId")  int reservation_id, int user_id){
 
+        if(service.removeReservation(reservation_id, user_id) > 0){
+            log.info("delete reservation 204:[{}]", "SUCCESS");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            if (service.removeReservation(id) > 0) {
-                response.put("result", "SUCCESS");
-                log.info("delete:[{}]", service.removeReservation(id)); //나는 DELETE된 id를 로그찍고 싶었으나 반환이 INT(0,1)이라 성공여부만 알 수 있다. 어떤 게 좋은 건가.
-            } else {
-                response.put("result", "FAIL");
-                response.put("reason", "id를 확인해주세요.");
-            }
+        }
+        else{
+            log.error("delete reservation 404:[{}]","FAIL");
+            String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
+            return new ResponseEntity<>(strErrorBody,HttpStatus.NOT_FOUND);
+        }
 
-        return response;
     }
 
 

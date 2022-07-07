@@ -4,14 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Date;
-
-
 @Getter
 @Setter
 @ToString
-public class PutDTO {
+public class ReservationPutReturnIdDTO {
 
-    private Date startdate;
-    private Date enddate;
+    private int returnId;
 }
