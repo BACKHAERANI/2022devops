@@ -1,11 +1,11 @@
 package com.Assembble.carbble.dto;
 
-import io.swagger.models.auth.In;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Getter
@@ -19,18 +19,24 @@ private Date enddate;
 private Integer purpose;
 private String purposeDetail;
 private Date reservationDate;
+private Integer rentalState;
+private Integer userId;
+private Integer carId;
+
+
 private Date returnDate;
-private String username;
-private String carName;
 private Integer refueling_amount;
 private String destination;
 private Integer mileage;
+private Integer distance;
 private String parking;
 private String damage;
 private String lighting;
 private String dashboard;
 private String besides;
-private Integer distance;
+
+
+
 
 
 

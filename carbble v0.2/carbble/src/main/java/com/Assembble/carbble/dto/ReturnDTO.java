@@ -16,7 +16,7 @@ public class ReturnDTO {
 
     private int return_id;
     @NotEmpty
-    private  String destination;
+    private String destination;
     @NotNull
     private int distance;
     @NotNull
@@ -28,7 +28,7 @@ public class ReturnDTO {
     @NotNull
     private Date returnDate;
     @NotNull
-    private int reservationId;
+    private Integer reservationId;
     @NotEmpty
     private String damage;
     @NotEmpty
@@ -39,4 +39,10 @@ public class ReturnDTO {
     private String besides;
 
 
+    public ReturnDTO(int return_id) {
+    }
+
+    public ReturnDTO() {
+
+    }
 }

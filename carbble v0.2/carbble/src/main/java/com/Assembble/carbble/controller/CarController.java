@@ -1,7 +1,7 @@
 package com.Assembble.carbble.controller;
 
 import com.Assembble.carbble.dto.CarDTO;
-import com.Assembble.carbble.service.CarServiceImpl;
+import com.Assembble.carbble.service.DatabaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,8 +20,7 @@ import java.util.List;
 public class CarController {
 
     @Autowired
-    CarServiceImpl car;
-
+    DatabaseServiceImpl car;
 
 
     @RequestMapping(value = "/cars" , method = RequestMethod.GET)
@@ -30,26 +29,33 @@ public class CarController {
         List<CarDTO> carDTO = car.getCar();
 
         if (carDTO.isEmpty()) {
-            log.info("select car 400:[{}]", car.getCar());
+            log.info("select car Empty:[{}]", carDTO);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         } else {
-            log.info("select car 200:[{}]", car.getCar());
+            //list length
+            log.info("select getcar count:[{}]", carDTO.size());
             return new ResponseEntity<>(carDTO, HttpStatus.OK);
         }
 
     }
 
-    @RequestMapping(value = "/cars/{carId}", method = RequestMethod.PUT)
-    public ResponseEntity<String> putUseStatus(@PathVariable("carId") int car_id) {
-        System.out.println("controll : ");
-        System.out.println(car_id);
 
-        if (car.putUseStatus(car_id) >0) {
+
+    @RequestMapping(value = "/cars/{carId}", method = RequestMethod.PUT)
+    public ResponseEntity<String> putUseStatus(@PathVariable("carId") int car_id, int use_status) {
+
+        //car_id, useStatus  log
+        log.info("put car car_id:[{}]", car_id);
+        log.info("put car use_status:[{}]", use_status);
+
+        if (car.putUseStatus(car_id, use_status) >0) {
             log.info("put car 200:[{}]", "SUCCESS");
             return new ResponseEntity<>(HttpStatus.OK);
 
-        } else {
+        }
+        else
+        {
             log.error("put car 404:[{}]", "FAIL");
             String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
             return new ResponseEntity<>(strErrorBody, HttpStatus.NOT_FOUND);

@@ -2,7 +2,6 @@ package com.Assembble.carbble.dao;
 
 import com.Assembble.carbble.dto.UserDTO;
 import com.Assembble.carbble.dto.UserPutDTO;
-import com.Assembble.carbble.dto.UserPwDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,7 +20,7 @@ public class UserDAOImpl implements UserDAO{
     public List<UserDTO> userSelect()
     {
 
-        String strQuery = "SELECT user_id, username, partname, position, telephone,authority FROM user_tbl";
+        String strQuery = "SELECT user_id, password, username, partname, position, telephone,authority FROM user_tbl";
         return jdbcTemplate.query(strQuery, new BeanPropertyRowMapper<>(UserDTO.class));
 
     }
@@ -29,7 +28,7 @@ public class UserDAOImpl implements UserDAO{
 
     public int userInsert(UserDTO dto)
     {
-        String strQuery = "INSERT INTO user_tbl(user_id, password, username, partname, position, telephone,authority) VALUES (?, HEX(AES_ENCRYPT(?, SHA2(\"enc_key\", 256))) , ?, ?, ?,?, ?)";
+        String strQuery = "INSERT INTO user_tbl(user_id,username, partname, position, telephone,authority) VALUES (?, HEX(AES_ENCRYPT(?, SHA2(\"enc_key\", 256))) , ?, ?, ?,?, ?)";
         return jdbcTemplate.update(strQuery, dto.getUserId(), dto.getPassword(), dto.getUsername(), dto.getPartname(), dto.getPosition(), dto.getTelephone(),dto.getAuthority());
 
     }
@@ -47,12 +46,11 @@ public class UserDAOImpl implements UserDAO{
 
 
     @Override
-    public int userPwUpdate(int user_id, UserPwDTO dto)
+    public int userPwUpdate(int user_id, String password)
     {
 
-
         String strQuery = "UPDATE user_tbl SET password = HEX(AES_ENCRYPT(?, SHA2(\"enc_key\", 256))) WHERE user_id=?" ;
-        return jdbcTemplate.update(strQuery, dto.getPassword(),user_id);
+        return jdbcTemplate.update(strQuery, password, user_id);
 
     }
 
@@ -91,7 +89,6 @@ public class UserDAOImpl implements UserDAO{
             System.out.println(user_id);
             System.out.println(condition);
 
-            //리턴문제
             return jdbcTemplate.update(strQuery, user_id);
 
         }

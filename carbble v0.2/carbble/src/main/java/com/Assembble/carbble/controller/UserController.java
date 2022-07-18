@@ -1,7 +1,7 @@
 package com.Assembble.carbble.controller;
 
 import com.Assembble.carbble.dto.*;
-import com.Assembble.carbble.service.UserServiceImpl;
+import com.Assembble.carbble.service.DatabaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class UserController {
 
 
     @Autowired
-    UserServiceImpl userService;
+    DatabaseServiceImpl userService;
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ResponseEntity<List<UserDTO>> userList() {
@@ -29,11 +29,11 @@ public class UserController {
         List<UserDTO> userDTO = userService.getUser();
 
         if (userDTO.isEmpty()) {
-            log.info("select User 400:[{}]", userService.getUser());
+            log.info("select User 400:[{}]", userDTO );
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         } else {
-            log.info("select User 200:[{}]", userService.getUser());
+            log.info("select User 200:[{}]", userDTO );
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
 
 
@@ -45,53 +45,53 @@ public class UserController {
     public ResponseEntity<String> addUser(@Valid @RequestBody UserDTO dto) {
 
         if (userService.addUser(dto) > 0) {
-            log.info("post user 201:[{}]", "SUCCESS");
+            log.info("post user 201:[SUCCESS]");
             return new ResponseEntity<>(HttpStatus.CREATED);
 
         } else {
-            log.error("post user 400:[{}]", "FAIL");
-            String strErrorBody = "{\"reason\":\"잘못된 요청입니다.\"}";
+            //정확한 이유를 표기
+            String strErrorBody = "{\"reason\":\"사용자를 등록할 수 없습니다.\"}";
+            log.error("post user 400:[{}]", strErrorBody );
             return new ResponseEntity<>(strErrorBody, HttpStatus.BAD_REQUEST);
         }
 
     }
 
+    //user_id log
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.DELETE)
     public ResponseEntity<String> removeUser(@PathVariable("userId") Integer user_id) {
 
-        if (userService.removeUser(user_id) > 0) {
-            log.info("delete user 204:[{}]", "SUCCESS");
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        log.info("delete user user_id:[{}]", user_id);
 
+        if (userService.removeUser(user_id) > 0) {
+            log.info("delete user 204:[SUCCESS]");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            log.error("delete user 404:[{}]", "FAIL");
             String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
+            log.error("delete user 404:[{}]", strErrorBody);
             return new ResponseEntity<>(strErrorBody, HttpStatus.NOT_FOUND);
         }
 
     }
 
-
+//user_id
+    //String password
     @RequestMapping(value = "/users/pw/{userId}", method = RequestMethod.PUT)
-    public ResponseEntity<String>  modifyPwUser(@PathVariable("userId") Integer user_id, UserPwDTO dto) {
+    public ResponseEntity<String> modifyPwUser(@PathVariable("userId") Integer user_id, @RequestBody String password) {
 
-        try {
-            if (userService.modifyPwUser(user_id, dto) > 0) {
-                log.info("put user 200:[{}]", "SUCCESS");
+        log.info("change pw user_id:[{}]", user_id);
+
+            if (userService.modifyPwUser(user_id, password) > 0) {
+                log.info("put user pw modify :[SUCCESS]");
                 return new ResponseEntity<>(HttpStatus.OK);
             }
-            else{
-                log.error("put user 404:[{}]", "FAIL");
-                String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
+            else
+            {
+                String strErrorBody = "{\"reason\":\"user_id를 찾을 수 없습니다.\"}";
+                log.error("put user pw modify Fail:[{}]", strErrorBody);
                 return new ResponseEntity<>(strErrorBody, HttpStatus.NOT_FOUND);
             }
 
-        } catch (NoSuchMethodError e) {
-            //Error? Exception?
-            log.error("put user 400:[{}]", "FAIL");
-            String strErrorBody = "{\"reason\":\"잘못된 요청입니다.\"}";
-            return new ResponseEntity<>(strErrorBody, HttpStatus.BAD_REQUEST);
-        }
     }
 
 
@@ -99,17 +99,23 @@ public class UserController {
 
 
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.PUT)
-    public ResponseEntity<String> modifyUser(@PathVariable("userId") int user_id, UserPutDTO dto) {
-        System.out.println("controll : ");
-        System.out.println(user_id);
+    public ResponseEntity<String> modifyUser(@PathVariable("userId") int user_id, @RequestBody UserPutDTO dto) {
 
-        if (userService.modifyUser(user_id,dto)>0) {
-            log.info("put user 200:[{}]", "SUCCESS");
+        log.info("put user tel,position,partname modify user_id:[{}]",user_id);
+        log.info("put user partname modify:[{}]", dto.getPartname());
+        log.info("put user position modify:[{}]", dto.getPosition());
+        log.info("put user tel modify:[{}]", dto.getTelephone());
+
+
+        if (userService.modifyUser(user_id,dto)>0)
+        {
+            log.info("put user tel,position,partname:[SUCCESS]");
             return new ResponseEntity<>(HttpStatus.OK);
-
-        } else {
-            log.error("put user 404:[{}]", "FAIL");
-            String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
+        }
+        else
+        {
+            String strErrorBody = "{\"reason\":\"user_id를 찾을 수 없습니다.\"}";
+            log.error("put user tel,position,partname modify Fail:[{}]", strErrorBody);
             return new ResponseEntity<>(strErrorBody, HttpStatus.NOT_FOUND);
         }
 

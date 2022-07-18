@@ -2,7 +2,6 @@ package com.Assembble.carbble.dao;
 
 import com.Assembble.carbble.dto.UserDTO;
 import com.Assembble.carbble.dto.UserPutDTO;
-import com.Assembble.carbble.dto.UserPwDTO;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface UserDAO {
 
     int userDelete(int user_id);
 
-    int userPwUpdate(int user_id, UserPwDTO dto);
+    int userPwUpdate(int user_id, String password);
 
     int userUpdate(int user_id, UserPutDTO dto);
 }

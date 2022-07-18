@@ -1,7 +1,7 @@
 package com.Assembble.carbble.dao;
 
 import com.Assembble.carbble.dto.CarDTO;
-import com.Assembble.carbble.dto.UserDTO;
+import com.Assembble.carbble.dto.CarPutDAO;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ public interface CarDAO {
 
     CarDTO select(int car_id);
 
-     int update(int car_id);
+     int updateUseStatus(int car_id, int use_status);
 
 
-    int updatemileage(int car_id, CarPutDTO cdto);
+    int updatemileage(int car_id, CarPutDAO cdto);
 }

@@ -1,8 +1,6 @@
 package com.Assembble.carbble.dao;
 
-import com.Assembble.carbble.dto.ReservationDTO;
-import com.Assembble.carbble.dto.ReservationPutReturnIdDTO;
-import com.Assembble.carbble.dto.ReservationPutDTO;
+import com.Assembble.carbble.dto.*;
 
 import java.util.Date;
 import java.util.List;
@@ -11,13 +9,21 @@ public interface ReservationDAO {
 
 
 
-    List<ReservationPutDTO> select(Date startdate, Date enddate);
-
-    int insert(ReservationDTO dto);
+    List<ReservationDTO> select(Date startdate, Date enddate);
 
 
-    int delete(int reservation_id, int user_id);
+    ReservationDTO selectReservationId(int reservation_id);
+
+    Integer selectCount(ReservationDTO dto);
+
+    int insert(IReservationDTO dto);
 
 
-    int update(int reservationId, ReservationPutReturnIdDTO rdto);
+    int delete(int reservation_id);
+
+
+    int update(ReservationPutReturnIdDTO rdto);
+
+
+
 }
