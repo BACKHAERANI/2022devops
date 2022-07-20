@@ -27,7 +27,11 @@ public class DatabaseServiceImpl implements DatabaseService{
     @Autowired
     UserDAOImpl user;
 
+    @Autowired
+    CheckDAOImpl checkDAO;
 
+    @Autowired
+    EmergencyDAOImpl emergencyDAO;
 
 
     ///////Member///////////////////////////////////////////////////////
@@ -55,7 +59,7 @@ public class DatabaseServiceImpl implements DatabaseService{
 
 
     @Override
-    public int addReservation(IReservationDTO dto)
+    public int addReservation(BReservationDTO dto)
     {
         return reservation.insert(dto);
     }
@@ -123,6 +127,16 @@ public class DatabaseServiceImpl implements DatabaseService{
         return returnDAO.selectReturnByReturnIdList(list);
     }
 
+    @Override
+    public List<SumRefuelingDTO> sumRefueling(PutDateDTO dto) {
+        return returnDAO.sumRefueling(dto);
+    }
+
+    @Override
+    public List<CountRefuelingDTO> countRefueling(PutDateDTO dto) {
+        return returnDAO.countRefueling(dto);
+    }
+
 
     ///////user///////////////////////////////////////////////////////
 
@@ -154,6 +168,54 @@ public class DatabaseServiceImpl implements DatabaseService{
         return user.userUpdate(user_id, dto);
     }
 
+
+    @Override
+    public  int selectCountUser(UserDTO dto){return user.selectCountUser(dto);}
+
+
+
+
+    ///////check///////////////////////////////////////////////////////
+
+
+    @Override
+    public List<CheckDTO> selectCheck(java.sql.Date startdate, java.sql.Date enddate) {
+        return checkDAO.selectCheck(startdate, enddate);
+    }
+
+    @Override
+    public int insertCheck(CheckDTO dto) {
+        return checkDAO.insertCheck(dto);
+    }
+
+    @Override
+    public int updateCheck(int check_id, CheckPutDTO dto) {
+        return checkDAO.updateCheck(check_id, dto);
+    }
+
+    @Override
+    public int deleteCheck(int check_id) {
+        return checkDAO.deleteCheck(check_id);
+    }
+
+
+
+    ///////emergency///////////////////////////////////////////////////////
+
+    @Override
+    public int insertEmergency(EmergencyDTO dto) {
+        return emergencyDAO.insertEmergency(dto);
+    }
+
+    @Override
+    public List<EmergencyDTO> selectEmergency(java.sql.Date startdate, java.sql.Date endate) {
+        return emergencyDAO.selectEmergency(startdate, endate);
+    }
+
+    @Override
+    public int updateEmergency(int emergency_id, EmergencyPutDTO dto) {
+        return emergencyDAO.updateEmergency(emergency_id, dto);
+    }
 
 
 }

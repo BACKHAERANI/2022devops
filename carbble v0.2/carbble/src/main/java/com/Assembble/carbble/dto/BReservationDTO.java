@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class IReservationDTO {
+public class BReservationDTO {
 
 
 

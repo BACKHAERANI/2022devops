@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import javax.validation.Valid;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @RestController
@@ -30,7 +29,8 @@ public class ReservationController {
     // 200 응답  404에러
     //startdate, enddate log
     @RequestMapping(value = "/reservations", method = RequestMethod.PUT)
-    public ResponseEntity<List<ReservationPutDTO>> putReservation(@RequestBody ReservationPutDateDTO dto ) {
+    public ResponseEntity<List<ReservationPutDTO>> putReservation(@RequestBody PutDateDTO dto )
+    {
 
         List<ReservationPutDTO> returnList = new ArrayList<>();
 
@@ -40,8 +40,7 @@ public class ReservationController {
         List<Integer> returnIdList = reservationDTOList.stream().map(ReservationDTO::getReturnId).collect(Collectors.toList());
 
         //null을 제거한다
-        while (returnIdList.remove(null)) {
-        }
+        returnIdList.removeAll(Arrays.asList("", null));
 
         log.info("reservation-return_id list:[{}]",returnIdList);
 
@@ -51,10 +50,14 @@ public class ReservationController {
         //조회한 returnDTO의 returnId와 ReservationDTO의 returnId가 같은지 조회한다음
         for (ReservationDTO reservationDTO : reservationDTOList) {
             ReservationPutDTO reservationPutDTO = new ReservationPutDTO();
-            for (ReturnDTO returnDTO : returnDTOList) {
-                if (reservationDTO.getReservationId() == returnDTO.getReservationId()
-                        && reservationDTO.getReturnId() != null) {
 
+        if(returnDTOList != null)
+        {
+            for (ReturnDTO returnDTO : returnDTOList)
+            {
+                if (reservationDTO.getReservationId() == returnDTO.getReservationId()
+                        && reservationDTO.getReturnId() != null )
+                {
                     reservationPutDTO.setReservationId(reservationDTO.getReservationId());
                     reservationPutDTO.setCarId(reservationDTO.getCarId());
                     reservationPutDTO.setStartdate(reservationDTO.getStartdate());
@@ -77,12 +80,13 @@ public class ReservationController {
                     reservationPutDTO.setBesides(returnDTO.getBesides());
 
                     returnList.add(reservationPutDTO);
-
                 }
-
             }
 
-            if (reservationDTO.getReturnId() == null) {
+        }
+
+            if (reservationDTO.getReturnId() == null)
+            {
                 reservationPutDTO.setReservationId(reservationDTO.getReservationId());
                 reservationPutDTO.setCarId(reservationDTO.getCarId());
                 reservationPutDTO.setStartdate(reservationDTO.getStartdate());
@@ -94,8 +98,6 @@ public class ReservationController {
                 reservationPutDTO.setReservationDate(reservationDTO.getReservationDate());
 
                 returnList.add(reservationPutDTO);
-
-
             }
 
         }
@@ -112,8 +114,6 @@ public class ReservationController {
             log.info("reservation select FAIL:[예약이 존재하지 않음]");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-
     }
 
 
@@ -122,15 +122,12 @@ public class ReservationController {
 //생각2. 리스트말고 한개씩 받아서 index를 reservation_id로 주고 for문을 돌려서 리스트를 만든다?
 
 
-
-
-
     //저장
     //201 생성 응답 400 에러
     //새로운 DTO 정의해서 사용
     @RequestMapping(value = "/reservations", method = RequestMethod.POST)
-    public ResponseEntity<String> addReservation(@Valid @RequestBody IReservationDTO dto){
-
+    public ResponseEntity<String> addReservation(@Valid @RequestBody BReservationDTO dto)
+    {
         ReservationDTO reservationDTO = new ReservationDTO();
 
         reservationDTO.setStartdate(dto.getStartdate());
@@ -169,7 +166,17 @@ public class ReservationController {
             }
             else
             {
-                log.info("post reservation SUCCESS :[{}]" , dto);
+                if(service.addReservation(dto)>0){
+                    log.info("post reservation :[SUCCESS]");
+                    return new ResponseEntity<>(HttpStatus.CREATED);
+
+                }else{
+                    String strErrorBody = "{\"reason\":\"예약을 할 수 없습니다.\"}";
+                    log.error("post reservation :[{}]", strErrorBody);
+                    return new ResponseEntity<>(strErrorBody,HttpStatus.BAD_REQUEST);
+                }
+
+
             }
         }
        else
@@ -178,21 +185,6 @@ public class ReservationController {
             log.error("fast reservation :[{}]", strErrorBody);
             return new ResponseEntity<>(strErrorBody,HttpStatus.BAD_REQUEST);
        }
-
-
-
-       log.info("post reservation content:[{}]", service.addReservation(dto));
-
-
-        if(service.addReservation(dto)>0){
-            log.info("post reservation :[SUCCESS]");
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        }else{
-            String strErrorBody = "{\"reason\":\"예약을 할 수 없습니다.\"}";
-            log.error("post reservation :[{}]", strErrorBody);
-            return new ResponseEntity<>(strErrorBody,HttpStatus.BAD_REQUEST);
-        }
-
     }
 
 
@@ -202,24 +194,20 @@ public class ReservationController {
     //user_id 추후에
     //reservation_id log
     @RequestMapping(value = "/reservations/{reservationId}", method = RequestMethod.DELETE)
-    public ResponseEntity<String> removeReservation(@PathVariable int reservationId){
+    public ResponseEntity<String> removeReservation(@PathVariable int reservationId)
+    {
         log.info("delete reservation_id:[{}]", reservationId);
 
         if(service.removeReservation(reservationId) > 0){
             log.info("delete reservation success:[{}]", reservationId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
         }
         else{
             String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
             log.error("delete reservation 404:[{}]", strErrorBody);
             return new ResponseEntity<>(strErrorBody,HttpStatus.NOT_FOUND);
         }
-
     }
-
-
-
 
 
 }

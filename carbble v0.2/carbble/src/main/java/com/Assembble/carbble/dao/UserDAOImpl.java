@@ -1,8 +1,8 @@
 package com.Assembble.carbble.dao;
 
-import com.Assembble.carbble.dto.UserDTO;
-import com.Assembble.carbble.dto.UserPutDTO;
+import com.Assembble.carbble.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,15 +20,35 @@ public class UserDAOImpl implements UserDAO{
     public List<UserDTO> userSelect()
     {
 
-        String strQuery = "SELECT user_id, password, username, partname, position, telephone,authority FROM user_tbl";
+        String strQuery = "SELECT user_id, username, partname, position, telephone,authority FROM user_tbl";
         return jdbcTemplate.query(strQuery, new BeanPropertyRowMapper<>(UserDTO.class));
 
+    }
+
+    @Override
+    public Integer selectCountUser(UserDTO dto){
+
+        String strQuery = "SELECT COUNT(*) AS count FROM user_tbl WHERE user_id = ?;";
+        try
+        {
+            CountDTO count = jdbcTemplate.queryForObject(
+                    strQuery,
+                    new BeanPropertyRowMapper<>(CountDTO.class),
+                    new Object[]{dto.getUserId()}
+            );
+
+            return count.getCount();
+        }
+        catch(EmptyResultDataAccessException e)
+        {
+            return null;
+        }
     }
 
 
     public int userInsert(UserDTO dto)
     {
-        String strQuery = "INSERT INTO user_tbl(user_id,username, partname, position, telephone,authority) VALUES (?, HEX(AES_ENCRYPT(?, SHA2(\"enc_key\", 256))) , ?, ?, ?,?, ?)";
+        String strQuery = "INSERT INTO user_tbl(user_id, password ,username, partname, position, telephone,authority) VALUES (?, HEX(AES_ENCRYPT(?, SHA2(\"enc_key\", 256))) , ?, ?, ?, ?, ?)";
         return jdbcTemplate.update(strQuery, dto.getUserId(), dto.getPassword(), dto.getUsername(), dto.getPartname(), dto.getPosition(), dto.getTelephone(),dto.getAuthority());
 
     }
@@ -48,6 +68,11 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public int userPwUpdate(int user_id, String password)
     {
+//        String str = password;
+//        str = str.replaceAll("\"","");
+//
+//        System.out.println(str);
+
 
         String strQuery = "UPDATE user_tbl SET password = HEX(AES_ENCRYPT(?, SHA2(\"enc_key\", 256))) WHERE user_id=?" ;
         return jdbcTemplate.update(strQuery, password, user_id);
@@ -77,17 +102,13 @@ public class UserDAOImpl implements UserDAO{
             condition = condition3;}
         if (!condition1.equals("") && !condition2.equals("")) {
             condition = condition1 + "," + condition2 + "," + condition3;
-            System.out.println("ALL :");
-            System.out.println(condition);
 
         }
 
 
             String strQuery = "UPDATE user_tbl SET " + condition + " WHERE user_id=? ";
 
-            System.out.println(strQuery);
-            System.out.println(user_id);
-            System.out.println(condition);
+
 
             return jdbcTemplate.update(strQuery, user_id);
 

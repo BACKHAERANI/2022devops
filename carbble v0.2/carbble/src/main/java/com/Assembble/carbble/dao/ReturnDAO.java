@@ -1,7 +1,8 @@
 package com.Assembble.carbble.dao;
 
-import com.Assembble.carbble.dto.ReturnDTO;
+import com.Assembble.carbble.dto.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface ReturnDAO {
@@ -13,5 +14,9 @@ public interface ReturnDAO {
     List<ReturnDTO> selectReturnByReturnIdList(List<Integer> list);
 
     int insertReturn(ReturnDTO dto);
+
+    List<SumRefuelingDTO> sumRefueling(PutDateDTO dto);
+
+    List<CountRefuelingDTO> countRefueling(PutDateDTO dto);
 }
 

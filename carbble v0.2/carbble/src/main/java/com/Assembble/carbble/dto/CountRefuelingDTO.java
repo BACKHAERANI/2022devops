@@ -4,13 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.sql.Date;
-
 @Getter
 @Setter
 @ToString
-public class ReservationCountDTO {
+public class CountRefuelingDTO {
 
     private int count;
-
+    private int car_id;
 }

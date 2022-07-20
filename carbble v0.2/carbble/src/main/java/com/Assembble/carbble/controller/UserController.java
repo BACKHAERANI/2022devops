@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import sun.security.util.Password;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 @RestController
 @EnableSwagger2
@@ -44,18 +47,41 @@ public class UserController {
     @RequestMapping(value = "/users", method = RequestMethod.POST)
     public ResponseEntity<String> addUser(@Valid @RequestBody UserDTO dto) {
 
-        if (userService.addUser(dto) > 0) {
-            log.info("post user 201:[SUCCESS]");
-            return new ResponseEntity<>(HttpStatus.CREATED);
 
-        } else {
-            //정확한 이유를 표기
-            String strErrorBody = "{\"reason\":\"사용자를 등록할 수 없습니다.\"}";
-            log.error("post user 400:[{}]", strErrorBody );
+        Boolean validPassword = Pattern.matches("^[0-9a-zA-Z#@!$&*^]*$", dto.getPassword());
+        log.info("post user password valid : [{}]",validPassword);
+
+        if(userService.selectCountUser(dto) > 0)
+        {
+            String strErrorBody = "{\"reason\":\"해당 아이디가 존재합니다.\"}";
+            log.error("post user EXIST user_id :[{}]", strErrorBody);
             return new ResponseEntity<>(strErrorBody, HttpStatus.BAD_REQUEST);
+        }else {
+
+            if (validPassword == true) {
+                if (userService.addUser(dto) > 0) {
+                    log.info("post user :[SUCCESS]");
+                    return new ResponseEntity<>(HttpStatus.CREATED);
+
+                } else {
+                    String strErrorBody = "{\"reason\":\"사용자를 등록할 수 없습니다.\"}";
+                    log.error("post user NOT CREATE :[{}]", strErrorBody);
+                    return new ResponseEntity<>(strErrorBody, HttpStatus.BAD_REQUEST);
+                }
+            } else {
+
+                String strErrorBody = "{\"reason\":\"비밀번호는 띄어쓰기없이 숫자, 알파벳, 특수기호 #@!$&*^만을 포함합니다.\"}";
+                log.error("post user password valid FAIL:[{}]", strErrorBody);
+                return new ResponseEntity<>(strErrorBody, HttpStatus.BAD_REQUEST);
+            }
         }
 
+
     }
+
+
+
+
 
     //user_id log
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.DELETE)
@@ -64,11 +90,11 @@ public class UserController {
         log.info("delete user user_id:[{}]", user_id);
 
         if (userService.removeUser(user_id) > 0) {
-            log.info("delete user 204:[SUCCESS]");
+            log.info("delete user :[SUCCESS]");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             String strErrorBody = "{\"reason\":\"id를 찾을 수 없습니다.\"}";
-            log.error("delete user 404:[{}]", strErrorBody);
+            log.error("delete user FAIL:[{}]", strErrorBody);
             return new ResponseEntity<>(strErrorBody, HttpStatus.NOT_FOUND);
         }
 
@@ -77,11 +103,14 @@ public class UserController {
 //user_id
     //String password
     @RequestMapping(value = "/users/pw/{userId}", method = RequestMethod.PUT)
-    public ResponseEntity<String> modifyPwUser(@PathVariable("userId") Integer user_id, @RequestBody String password) {
+    public ResponseEntity<String> modifyPwUser(@PathVariable("userId") Integer user_id, @RequestBody Map<String, Object> param) {
 
-        log.info("change pw user_id:[{}]", user_id);
+//        log.info("change pw user_id:[{}]", user_id);
+        log.info("change pw user_id:[{}]", param.get("password"));
 
-            if (userService.modifyPwUser(user_id, password) > 0) {
+
+
+            if (userService.modifyPwUser(user_id, param.get("password").toString()) > 0) {
                 log.info("put user pw modify :[SUCCESS]");
                 return new ResponseEntity<>(HttpStatus.OK);
             }
@@ -101,7 +130,7 @@ public class UserController {
     @RequestMapping(value = "/users/{userId}", method = RequestMethod.PUT)
     public ResponseEntity<String> modifyUser(@PathVariable("userId") int user_id, @RequestBody UserPutDTO dto) {
 
-        log.info("put user tel,position,partname modify user_id:[{}]",user_id);
+        log.info("put user ...user_id:[{}]",user_id);
         log.info("put user partname modify:[{}]", dto.getPartname());
         log.info("put user position modify:[{}]", dto.getPosition());
         log.info("put user tel modify:[{}]", dto.getTelephone());

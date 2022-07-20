@@ -16,7 +16,7 @@ public interface ReservationDAO {
 
     Integer selectCount(ReservationDTO dto);
 
-    int insert(IReservationDTO dto);
+    int insert(BReservationDTO dto);
 
 
     int delete(int reservation_id);

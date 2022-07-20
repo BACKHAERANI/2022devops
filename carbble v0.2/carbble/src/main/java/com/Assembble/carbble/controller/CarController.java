@@ -24,26 +24,25 @@ public class CarController {
 
 
     @RequestMapping(value = "/cars" , method = RequestMethod.GET)
-    public ResponseEntity<List<CarDTO>> getCarList(){
-
+    public ResponseEntity<List<CarDTO>> getCarList()
+    {
         List<CarDTO> carDTO = car.getCar();
 
         if (carDTO.isEmpty()) {
             log.info("select car Empty:[{}]", carDTO);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
         } else {
             //list length
             log.info("select getcar count:[{}]", carDTO.size());
             return new ResponseEntity<>(carDTO, HttpStatus.OK);
         }
-
     }
 
 
 
     @RequestMapping(value = "/cars/{carId}", method = RequestMethod.PUT)
-    public ResponseEntity<String> putUseStatus(@PathVariable("carId") int car_id, int use_status) {
+    public ResponseEntity<String> modifyUseStatus(@PathVariable("carId") int car_id, int use_status)
+    {
 
         //car_id, useStatus  log
         log.info("put car car_id:[{}]", car_id);
@@ -52,7 +51,6 @@ public class CarController {
         if (car.putUseStatus(car_id, use_status) >0) {
             log.info("put car 200:[{}]", "SUCCESS");
             return new ResponseEntity<>(HttpStatus.OK);
-
         }
         else
         {

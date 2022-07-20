@@ -26,6 +26,8 @@ public class ReturnDTO {
     @NotNull
     private int refuelingAmount;
     @NotNull
+    private Boolean refuelingCheck;
+    @NotNull
     private Date returnDate;
     @NotNull
     private Integer reservationId;
@@ -37,6 +39,10 @@ public class ReturnDTO {
     private String dashboard;
     @NotEmpty
     private String besides;
+    @NotEmpty
+    private int car_id;
+
+
 
 
     public ReturnDTO(int return_id) {

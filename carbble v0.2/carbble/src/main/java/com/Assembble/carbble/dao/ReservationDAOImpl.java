@@ -56,9 +56,9 @@ public class ReservationDAOImpl implements ReservationDAO{
         String strQuery = "SELECT COUNT(*) AS count FROM reservation_tbl WHERE startdate < ? AND enddate > ? AND car_id = ?;";
         try
         {
-            ReservationCountDTO count = jdbcTemplate.queryForObject(
+            CountDTO count = jdbcTemplate.queryForObject(
                     strQuery,
-                    new BeanPropertyRowMapper<>(ReservationCountDTO.class),
+                    new BeanPropertyRowMapper<>(CountDTO.class),
                     new Object[]{ dto.getEnddate(), dto.getStartdate(), dto.getCarId()}
             );
 
@@ -72,7 +72,7 @@ public class ReservationDAOImpl implements ReservationDAO{
 
 
     @Override
-    public int insert(IReservationDTO dto)
+    public int insert(BReservationDTO dto)
     {
 
         String strQuery = "INSERT INTO reservation_tbl (startdate, enddate, purpose, purpose_detail, car_id, user_id) VALUES ( ?, ?, ?, ?, ?, ?);";

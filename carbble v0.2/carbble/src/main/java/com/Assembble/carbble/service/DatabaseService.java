@@ -17,7 +17,7 @@ public interface DatabaseService {
     List<ReservationDTO> putReservation(Date startdate, Date enddate);
 
 
-    int addReservation(IReservationDTO dto);
+    int addReservation(BReservationDTO dto);
 
     Integer selectCount(ReservationDTO dto);
 
@@ -48,9 +48,13 @@ public interface DatabaseService {
 
     List<ReturnDTO> selectReturnByReturnIdList(List<Integer> list);
 
+
+    List<SumRefuelingDTO> sumRefueling(PutDateDTO dto);
+
+    List<CountRefuelingDTO> countRefueling(PutDateDTO dto);
+
+
     ///////user///////////////////////////////////////////////////////
-
-
 
 
     List<UserDTO> getUser();
@@ -62,6 +66,28 @@ public interface DatabaseService {
     int modifyPwUser(int user_id, String password);
 
     int modifyUser(int user_id, UserPutDTO dto);
+
+
+    int selectCountUser(UserDTO dto);
+
+    ///////check///////////////////////////////////////////////////////
+    List<CheckDTO> selectCheck(java.sql.Date startdate, java.sql.Date enddate);
+
+    int insertCheck(CheckDTO dto);
+
+
+    int updateCheck(int check_id, CheckPutDTO dto);
+
+
+    int deleteCheck(int check_id);
+
+    ///////emergency///////////////////////////////////////////////////////
+
+    int insertEmergency(EmergencyDTO dto);
+
+    List<EmergencyDTO> selectEmergency(java.sql.Date startdate, java.sql.Date endate);
+
+    int updateEmergency(int emergency_id, EmergencyPutDTO dto);
 
 }
 

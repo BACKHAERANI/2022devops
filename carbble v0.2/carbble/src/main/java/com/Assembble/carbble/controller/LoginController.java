@@ -29,8 +29,8 @@ public class LoginController {
 //값이 1개 리스트일 필요 x
     //jwt 공부....
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public  ResponseEntity<UserDTO>loginUser(@RequestBody MemberDTO dto){
-
+    public  ResponseEntity<UserDTO>loginUser(@RequestBody MemberDTO dto)
+    {
         UserDTO userDTO = service.loginUser(dto);
 
         if (userDTO != null ) {

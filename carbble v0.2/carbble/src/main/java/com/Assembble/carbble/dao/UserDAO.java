@@ -1,7 +1,10 @@
 package com.Assembble.carbble.dao;
 
+import com.Assembble.carbble.dto.MemberDTO;
 import com.Assembble.carbble.dto.UserDTO;
 import com.Assembble.carbble.dto.UserPutDTO;
+import com.Assembble.carbble.dto.UserPwPutDTO;
+import sun.security.util.Password;
 
 import java.util.List;
 
@@ -9,6 +12,8 @@ public interface UserDAO {
 
 
     List<UserDTO> userSelect();
+
+    Integer selectCountUser(UserDTO dto);
 
     int userInsert(UserDTO dto);
 
