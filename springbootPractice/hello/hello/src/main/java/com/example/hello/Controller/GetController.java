@@ -26,6 +26,7 @@ public class GetController {
         return var;
     }
 
+    //http://localhost:9090/api/v1/get-api/request1?name=value&email=value2&organization=value3
     @GetMapping(value = "/request1")
     public  String getRequestParam1(@RequestParam String name, @RequestParam String email, @RequestParam String organization){
         return name+""+email+""+organization;
