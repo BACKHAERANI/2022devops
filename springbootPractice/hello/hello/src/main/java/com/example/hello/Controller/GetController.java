@@ -1,6 +1,8 @@
 package com.example.hello.Controller;
 
 import com.example.hello.dto.MemberDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -31,7 +33,10 @@ public class GetController {
 
     //http://localhost:9090/api/v1/get-api/request1?name=value&email=value2&organization=value3
     @GetMapping(value = "/request1")
-    public  String getRequestParam1(@RequestParam String name, @RequestParam String email, @RequestParam String organization){
+    @ApiOperation(value = "GET 메서드 예제", notes = "@RequestParam을 활용한 GET Method")
+    public  String getRequestParam1(@ApiParam(value = "이름", required = true) @RequestParam String name,
+                                    @ApiParam(value = "이메일", required = true) @RequestParam String email,
+                                    @ApiParam(value = "회사", required = true) @RequestParam String organization){
         return name+""+email+""+organization;
     }
 
