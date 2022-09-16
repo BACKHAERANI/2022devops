@@ -1,5 +1,6 @@
 package com.example.hello.Controller;
 
+import com.example.hello.dto.MemberDto;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -42,6 +43,11 @@ public class GetController {
             sb.append(map.getKey()+":" + map.getValue()+"\n");
         });
         return sb.toString();
+    }
+    //http://localhost:9090/api/v1/get-api/request3?name=value&email=value2&organization=value3
+    @GetMapping(value = "/request3")
+    public String getRequestParam3(MemberDto memberDto){
+        return memberDto.toString();
     }
 
 }
